@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
-import accidentCaseConfig from './accident-case.config';
+import accidentCaseConfig from './config/accident-case.config';
 import { Model } from 'mongoose';
-import { IAccidentCase } from './accident-case.interface';
+import { IAccidentCase } from './interface/accident-case.interface';
 
 @Injectable()
 export class AccidentCaseService {

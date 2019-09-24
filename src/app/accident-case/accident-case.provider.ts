@@ -1,9 +1,8 @@
-import accidentCaseConfig from './accident-case.config';
 import { Connection } from 'mongoose';
-import { AccidentCaseSchema } from './accident-case.schema';
-import app_main_dbConfig from '../database/app/app_db';
+import { AccidentCaseSchema } from './schema/accident-case.schema';
 import { FactoryProvider } from '@nestjs/common/interfaces';
-import { AppMainDBModule } from '../database/app/app_db.module';
+import { accidentCaseConfig } from './config/accident-case.config';
+import app_db from '../../database/app/app_db';
 
 export const accidentCaseProviders: FactoryProvider[] = [
     {
@@ -14,6 +13,6 @@ export const accidentCaseProviders: FactoryProvider[] = [
                 AccidentCaseSchema,
                 accidentCaseConfig.collectionName,
             ),
-        inject: [app_main_dbConfig.connectionName],
+        inject: [app_db.connectionName],
     },
 ];

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AccidentCaseModule } from './accident-case/accident-case.module';
+import { AccidentCaseModule } from './app/accident-case/accident-case.module';
 import { AppMainDBModule } from './database/app/app_db.module';
 import { ConfigModule } from './config/config.module';
+import { PersonModule } from './app/person/person.module';
 
 @Module({
-  imports: [ConfigModule, AppMainDBModule, AccidentCaseModule],
+  imports: [ConfigModule, AppMainDBModule, AccidentCaseModule, PersonModule],
   controllers: [AppController],
   providers: [AppService],
 })
