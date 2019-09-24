@@ -12,10 +12,16 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
   private readonly context: string;
 
-  constructor(filePath: string) {
+  constructor(private readonly ENVIRONMENT: string) {
     this.context = 'ConfigService';
-    const config = dotenv.parse(fs.readFileSync(filePath));
+    const envFilePath: string = this.getEnvFilePath(ENVIRONMENT);
+    const config = dotenv.parse(fs.readFileSync(envFilePath));
     this.envConfig = this.validateInput(config);
+  }
+
+  private getEnvFilePath(ENV: string): string {
+    const envDir: string = 'environment';
+    return `${envDir}/${ENV}.env`;
   }
 
   private validateInput(envConfig: EnvConfig): EnvConfig {
@@ -23,6 +29,8 @@ export class ConfigService {
       APP_ENV: Joi.string()
         .valid('development', 'production', 'test', 'provision')
         .default('development'),
+      VERSION: Joi.string(),
+      SERVER_PORT: Joi.number().default(3000),
       MONGO_SERVER_IP: Joi.string().default('localhost'),
       MONGO_SERVER_PORT: Joi.number().default(27017),
       MONGO_USER_NAME: Joi.string(),
@@ -45,6 +53,19 @@ export class ConfigService {
     return validatedEnvConfig;
   }
 
+  get environment(): string {
+    return String(this.envConfig.APP_ENV);
+  }
+
+  get appVersion(): string {
+    return String(this.envConfig.VERSION);
+  }
+
+  get serverPort(): number {
+    const port: number = Number(this.envConfig.SERVER_PORT);
+    return port;
+  }
+
   get mongoServerIP(): string {
     const mServerIP: string = String(this.envConfig.MONGO_SERVER_IP);
     Logger.debug(`Server Mongo IP: ${mServerIP}`, this.context);
@@ -52,7 +73,9 @@ export class ConfigService {
   }
 
   get mongoServerPort(): number {
-    return Number(this.envConfig.MONGO_SERVER_PORT);
+    const mServerPort: number = Number(this.envConfig.MONGO_SERVER_PORT);
+    Logger.debug(`Server Mongo IP: ${mServerPort}`, this.context);
+    return mServerPort;
   }
 
   get mongoUserName(): string {
@@ -65,7 +88,7 @@ export class ConfigService {
 
   get mongoAuthSource(): string {
     const mAuthSource: string = String(this.envConfig.MONGO_DB_AUTH_SOURCE);
-    Logger.debug(`Auth Source : ${mAuthSource}`, this.context);
+    Logger.debug(`Mongo Auth Source : ${mAuthSource}`, this.context);
     return mAuthSource;
   }
 
@@ -74,11 +97,15 @@ export class ConfigService {
   }
 
   get minioIP(): string {
-    return String(this.envConfig.MINIO_SERVER_IP);
+    const IP = String(this.envConfig.MINIO_SERVER_IP);
+    Logger.debug(`Minio Server IP : ${IP}`, this.context);
+    return IP;
   }
 
   get minioPort(): number {
-    return Number(this.envConfig.MINIO_SERVER_PORT);
+    const port = Number(this.envConfig.MINIO_SERVER_PORT);
+    Logger.debug(`Minio Server Port : ${port}`, this.context);
+    return port;
   }
 
   get minioSecret(): string {
