@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as Joi from '@hapi/joi';
@@ -10,8 +10,10 @@ export interface EnvConfig {
 @Injectable()
 export class ConfigService {
   private readonly envConfig: EnvConfig;
+  private readonly context: string;
 
   constructor(filePath: string) {
+    this.context = 'ConfigService';
     const config = dotenv.parse(fs.readFileSync(filePath));
     this.envConfig = this.validateInput(config);
   }
@@ -25,6 +27,7 @@ export class ConfigService {
       MONGO_SERVER_PORT: Joi.number().default(27017),
       MONGO_USER_NAME: Joi.string(),
       MONGO_PASSWORD: Joi.string(),
+      MONGO_DB_AUTH_SOURCE: Joi.string(),
       APP_DATABASE_NAME: Joi.string(),
       MINIO_SERVER_IP: Joi.string().default('localhost'),
       MINIO_SERVER_PORT: Joi.number().default(9000),
@@ -43,7 +46,9 @@ export class ConfigService {
   }
 
   get mongoServerIP(): string {
-    return String(this.envConfig.MONGO_SERVER_IP);
+    const mServerIP: string = String(this.envConfig.MONGO_SERVER_IP);
+    Logger.debug(`Server Mongo IP: ${mServerIP}`, this.context);
+    return mServerIP;
   }
 
   get mongoServerPort(): number {
@@ -56,6 +61,12 @@ export class ConfigService {
 
   get mongoPassword(): string {
     return String(this.envConfig.MONGO_PASSWORD);
+  }
+
+  get mongoAuthSource(): string {
+    const mAuthSource: string = String(this.envConfig.MONGO_DB_AUTH_SOURCE);
+    Logger.debug(`Auth Source : ${mAuthSource}`, this.context);
+    return mAuthSource;
   }
 
   get appMainDBName(): string {
