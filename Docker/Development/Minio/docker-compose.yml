@@ -4,46 +4,11 @@
 ## this enable the possibility to expend the object storage to another server seamlessly
 version: '3.7'
 services:
-  mlStorage1:
+  udvioLawDocStorage:
     image: minio/minio:latest
-    volumes:
-      - /data/minio/MlStorage1:/data
     ports:
-      - 9001:9000
+      - 9000:9000
     environment:
-      MINIO_ACCESS_KEY: sealwdc
-      MINIO_SECRET_KEY: sealwdcml
-    command: server http://mlStorage1/data http://mlStorage2/data http://mlStorage3/data http://mlStorage4/data
-
-  mlStorage2:
-    image: minio/minio:latest
-    volumes:
-      - /data/minio/MlStorage2:/data
-    ports:
-      - 9002:9000
-    environment:
-      MINIO_ACCESS_KEY: sealwdc
-      MINIO_SECRET_KEY: sealwdcml
-    command: server http://mlStorage1/data http://mlStorage2/data http://mlStorage3/data http://mlStorage4/data
-
-  mlStorage3:
-    image: minio/minio:latest
-    volumes:
-      - /data/minio/MlStorage3:/data
-    ports:
-      - 9003:9000
-    environment:
-      MINIO_ACCESS_KEY: sealwdc
-      MINIO_SECRET_KEY: sealwdcml
-    command: server http://mlStorage1/data http://mlStorage2/data http://mlStorage3/data http://mlStorage4/data
-
-  mlStorage4:
-    image: minio/minio:latest
-    volumes:
-      - /data/minio/MlStorage4:/data
-    ports:
-      - 9004:9000
-    environment:
-      MINIO_ACCESS_KEY: sealwdc
-      MINIO_SECRET_KEY: sealwdcml
-    command: server http://mlStorage1/data http://mlStorage2/data http://mlStorage3/data http://mlStorage4/data
+      MINIO_ACCESS_KEY: dev
+      MINIO_SECRET_KEY: dev_password
+    command: server /data
