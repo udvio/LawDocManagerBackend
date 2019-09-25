@@ -36,3 +36,6 @@ lerna-debug.log*
 # Production .env 
 /environment/production.env
 /environment/development.env
+
+## persist_folder for volume mount
+/dev_persist
