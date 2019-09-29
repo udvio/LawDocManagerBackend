@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { Logger } from '@nestjs/common';
-import { DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import {address} from 'ip';
 
 async function bootstrap() {
@@ -18,7 +18,10 @@ async function bootstrap() {
   const swaggerOptions = new DocumentBuilder()
   .setTitle('Law Doc Manager')
   .setDescription('The Law Doc Manager Backend API description')
-  .setVersion(config.appVersion);
+  .setVersion(config.appVersion).build();
+
+  const swaggerDocument = SwaggerModule.createDocument(app,swaggerOptions);
+  SwaggerModule.setup('api',app,swaggerDocument);
 
   await app.listen(runPort, () => {
     Logger.debug(`Version:${config.appVersion} in ${config.environment} mode.`, appName);

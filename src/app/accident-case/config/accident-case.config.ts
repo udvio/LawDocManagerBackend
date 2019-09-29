@@ -1,6 +1,6 @@
-import { AppConfig } from '../../shared/interface/config.interface';
+import { MongoAppConfig } from '../../shared/interface/config.interface';
 
-export const accidentCaseConfig: AppConfig = {
+export const accidentCaseConfig: MongoAppConfig = {
     serviceToken : 'AccidentCaseService',
     modelName : 'IAccidentCase',
     collectionName : 'accident_case',

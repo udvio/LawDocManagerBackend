@@ -1,6 +1,6 @@
-import { AppConfig } from '../../shared/interface/config.interface';
+import { MongoAppConfig } from '../../shared/interface/config.interface';
 
-export const personConfig: AppConfig = {
+export const personConfig: MongoAppConfig = {
     serviceToken: 'PersonService',
     modelName: 'IPerson',
     collectionName: 'person',

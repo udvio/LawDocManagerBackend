@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as Joi from '@hapi/joi';
+import { join } from 'path';
 
 export interface EnvConfig {
   [key: string]: string;
@@ -21,7 +22,7 @@ export class ConfigService {
 
   private getEnvFilePath(ENV: string): string {
     const envDir: string = 'environment';
-    return `${envDir}/${ENV}.env`;
+    return join(process.cwd(),envDir,`${ENV}.env`);
   }
 
   private validateInput(envConfig: EnvConfig): EnvConfig {

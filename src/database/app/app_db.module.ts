@@ -1,10 +1,10 @@
 import { Module} from '@nestjs/common';
-import { testProvider } from './app_db.provider';
+import { appDBProvider } from './app_db.provider';
 import { ConfigModule } from '../../config/config.module';
 
 @Module({
     imports: [ConfigModule],
-    providers: [...testProvider],
-    exports: [...testProvider],
+    providers: [...appDBProvider],
+    exports: [...appDBProvider],
 })
 export class AppMainDBModule {}
