@@ -1,5 +1,4 @@
-import { Schema, version } from 'mongoose';
-import { number } from '@hapi/joi';
+import { Schema } from 'mongoose';
 
 export const PersonSchema = new Schema(
   {

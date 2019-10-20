@@ -7,12 +7,23 @@ import { ConfigModule } from './config/config.module';
 import { PersonModule } from './app/person/person.module';
 import { CaseNumberModule } from './app/case_number/case-number.module';
 import { RedisModule } from './database/redis/redis.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './app/users/users.module';
 
 
 
 @Module({
-  imports: [ConfigModule, AppMainDBModule, AccidentCaseModule, PersonModule, CaseNumberModule, RedisModule],
+  imports: [ConfigModule,
+    AppMainDBModule,
+    AccidentCaseModule,
+    PersonModule,
+    CaseNumberModule,
+    RedisModule,
+    AuthModule,
+    UsersModule],
+
   controllers: [AppController],
+  
   providers: [AppService],
 })
 export class AppModule { }

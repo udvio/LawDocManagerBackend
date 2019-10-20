@@ -19,7 +19,9 @@ async function bootstrap() {
   .setTitle(appName)
   .setDescription(`${appName} Backend API description`)
   .setContactEmail(config.developerEmail)
-  .setVersion(config.appVersion).build();
+  .setVersion(config.appVersion)
+  .addBearerAuth('jwt')
+  .build();
 
   const swaggerDocument = SwaggerModule.createDocument(app,swaggerOptions);
   SwaggerModule.setup('api',app,swaggerDocument);
