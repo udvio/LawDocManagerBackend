@@ -30,7 +30,9 @@ export class ConfigService {
       APP_ENV: Joi.string()
         .valid('development', 'production', 'test', 'provision')
         .default('development'),
+      FIRM_NAME: Joi.string(),
       VERSION: Joi.string(),
+      DEVELOPER_EMAIL: Joi.string(),
       SERVER_PORT: Joi.number().default(3000),
       MONGO_SERVER_IP: Joi.string().default('localhost'),
       MONGO_SERVER_PORT: Joi.number().default(27017),
@@ -56,6 +58,15 @@ export class ConfigService {
 
   get environment(): string {
     return String(this.envConfig.APP_ENV);
+  }
+
+  get firmName(): string{
+    return String(this.envConfig.FIRM_NAME);
+  }
+  
+
+  get developerEmail(): string{
+    return String(this.envConfig.DEVELOPER_EMAIL);
   }
 
   get appVersion(): string {

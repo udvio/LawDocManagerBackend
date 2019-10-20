@@ -1,22 +1,24 @@
 import { Document, Schema, Types } from "mongoose";
 
-export interface NumberTracker{ 
+export interface CaseNumberTracker{ 
     caseNumber: number
+    updatedAt?:Date;
+
 }
 
-export interface NumberTrackerDocument extends Document, NumberTracker{ 
-    caseNumber: number
+export interface caseNumberTrackerMongooseDocument extends Document, CaseNumberTracker{ 
 }
 
-export class CaseNumber implements NumberTracker {
+export class CaseNumber implements CaseNumberTracker {
     _id:Types.ObjectId;
     caseNumber: number;
+    updatedAt?:Date;
 }
 
 export const CaseNumberSchema = new Schema({
     caseNumber: {type:Number},
-    updateAt: {type:String, default:() => {
-        const now = new Date(Date.now());
+    updatedAt: {type:String, default:() => {
+        const now = new Date();
         return now;
     }
     }

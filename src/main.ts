@@ -8,16 +8,17 @@ import {address} from 'ip';
 
 async function bootstrap() {
   /*********  Configure Application  *******************/
-  const appName = 'Law Doc Manager Backend';
   const app = await NestFactory.create(AppModule);
   const config = app.select(ConfigModule).get(ConfigService);
   const runPort: number = config.serverPort;
+  const appName = config.firmName
   /*****************************************************/
 
   /*********  Configure Swagger Api Documentation  ***********/
   const swaggerOptions = new DocumentBuilder()
-  .setTitle('Law Doc Manager')
-  .setDescription('The Law Doc Manager Backend API description')
+  .setTitle(appName)
+  .setDescription(`${appName} Backend API description`)
+  .setContactEmail(config.developerEmail)
   .setVersion(config.appVersion).build();
 
   const swaggerDocument = SwaggerModule.createDocument(app,swaggerOptions);

@@ -1,4 +1,4 @@
 {
     "python.pythonPath": "/home/ud/anaconda3/envs/lawdocmanager/bin/python",
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
 }

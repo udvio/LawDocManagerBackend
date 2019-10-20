@@ -10,4 +10,10 @@ export class CaseNumberController {
     async getNewCaseNumber():Promise<number>{
         return await this.caseNumberService.createNewCaseNumber();
     }
+
+
+    @Post('/bootstrap')
+    async bootstrapNumberTracker(){
+        return await this.caseNumberService.bootstrapFirstCaseNumber();
+    }
 }
