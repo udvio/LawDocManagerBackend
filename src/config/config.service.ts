@@ -36,14 +36,14 @@ export class ConfigService {
       SERVER_PORT: Joi.number().default(3000),
       MONGO_SERVER_IP: Joi.string().default('localhost'),
       MONGO_SERVER_PORT: Joi.number().default(27017),
-      MONGO_USER_NAME: Joi.string(),
-      MONGO_PASSWORD: Joi.string(),
+      MONGO_INITDB_ROOT_USERNAME: Joi.string(),
+      MONGO_INITDB_ROOT_PASSWORD: Joi.string(),
       MONGO_DB_AUTH_SOURCE: Joi.string(),
       APP_DATABASE_NAME: Joi.string(),
       MINIO_SERVER_IP: Joi.string().default('localhost'),
       MINIO_SERVER_PORT: Joi.number().default(9000),
-      MINIO_SERVER_SECRET: Joi.string(),
-      MINIO_SERVER_ACCESS_KEY: Joi.string(),
+      MINIO_SECRET_KEY: Joi.string(),
+      MINIO_ACCESS_KEY: Joi.string(),
     });
 
     const { error, value: validatedEnvConfig } = envVarsSchema.validate(
@@ -91,11 +91,11 @@ export class ConfigService {
   }
 
   get mongoUserName(): string {
-    return String(this.envConfig.MONGO_USER_NAME);
+    return String(this.envConfig.MONGO_INITDB_ROOT_USERNAME);
   }
 
   get mongoPassword(): string {
-    return String(this.envConfig.MONGO_PASSWORD);
+    return String(this.envConfig.MONGO_INITDB_ROOT_PASSWORD);
   }
 
   get mongoAuthSource(): string {
@@ -121,10 +121,10 @@ export class ConfigService {
   }
 
   get minioSecret(): string {
-    return String(this.envConfig.MINIO_SERVER_SECRET);
+    return String(this.envConfig.MINIO_SECRET_KEY);
   }
 
   get minioAccessKey(): string {
-    return String(this.envConfig.MINIO_SERVER_ACCESS_KEY);
+    return String(this.envConfig.MINIO_ACCESS_KEY);
   }
 }
