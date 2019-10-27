@@ -1,0 +1,14 @@
+## $ docker-compose up
+## the above command is required to spin up all the required container
+## The image files will be segregated into pieces.
+## this enable the possibility to expend the object storage to another server seamlessly
+version: '3.7'
+services:
+  udvioLawDocStorage:
+    image: minio/minio:latest
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: dev
+      MINIO_SECRET_KEY: dev_password
+    command: server /data

@@ -1,0 +1,41 @@
+version: "3.7"
+
+services: 
+# Starting the app container once the db n minio is up.
+  law_dev:
+    build:
+      context: ./LawBackEnd
+      dockerfile: $PWD/Docker/Development/LawBackEnd/Dockerfile 
+    depends_on:
+      - mongo
+      - minio
+    ports: 
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: $PWD
+        target: /app
+        volume:
+          nocopy: true
+    links:
+      - mongo
+# Starting Mongo Container
+  mongo:
+    image: mongo
+    restart: always
+    env_file: $PWD/environment/development.env
+    ports: 
+      - 27017:27017
+# Starting Minio Container
+  minio:
+    image: minio/minio:latest
+    restart: always
+    ports:
+      - 9000:9000
+    env_file: $PWD/environment/development.env
+    command: server /data
+
+
+
+volumes:
+  lawdev:

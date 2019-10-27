@@ -32,3 +32,10 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Production .env 
+/environment/production.env
+/environment/development.env
+
+## persist_folder for volume mount
+/dev_persist

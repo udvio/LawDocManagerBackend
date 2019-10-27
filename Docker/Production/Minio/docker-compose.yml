@@ -1,0 +1,49 @@
+## $ docker-compose up
+## the above command is required to spin up all the required container
+## The image files will be segregated into pieces.
+## this enable the possibility to expend the object storage to another server seamlessly
+version: '3.7'
+services:
+  udvioLawDocStorage1:
+    image: minio/minio:latest
+    volumes:
+      - /data/minio/udvioLawDocStorage1:/data
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: secret
+      MINIO_SECRET_KEY: secret_password
+    command: server http://udvioLawDocStorage1/data http://udvioLawDocStorage2/data http://udvioLawDocStorage3/data http://udvioLawDocStorage4/data
+
+  udvioLawDocStorage2:
+    image: minio/minio:latest
+    volumes:
+      - /data/minio/udvioLawDocStorage2:/data
+    ports:
+      - 9001:9000
+    environment:
+      MINIO_ACCESS_KEY: secret
+      MINIO_SECRET_KEY: secret_password
+    command: server http://udvioLawDocStorage1/data http://udvioLawDocStorage2/data http://udvioLawDocStorage3/data http://udvioLawDocStorage4/data
+
+  udvioLawDocStorage3:
+    image: minio/minio:latest
+    volumes:
+      - /data/minio/udvioLawDocStorage3:/data
+    ports:
+      - 9002:9000
+    environment:
+      MINIO_ACCESS_KEY: secret
+      MINIO_SECRET_KEY: secret_password
+    command: server http://udvioLawDocStorage1/data http://udvioLawDocStorage2/data http://udvioLawDocStorage3/data http://udvioLawDocStorage4/data
+
+  udvioLawDocStorage4:
+    image: minio/minio:latest
+    volumes:
+      - /data/minio/udvioLawDocStorage4:/data
+    ports:
+      - 9003:9000
+    environment:
+      MINIO_ACCESS_KEY: secret
+      MINIO_SECRET_KEY: secret_password
+    command: server http://udvioLawDocStorage1/data http://udvioLawDocStorage2/data http://udvioLawDocStorage3/data http://udvioLawDocStorage4/data
