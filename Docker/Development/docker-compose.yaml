@@ -5,7 +5,7 @@ services:
   law_dev:
     build:
       context: ./LawBackEnd
-      dockerfile: $PWD/Docker/Development/LawBackEnd/Dockerfile 
+      dockerfile: $LAWDIR/Docker/Development/LawBackEnd/Dockerfile 
     depends_on:
       - mongo
       - minio
@@ -13,7 +13,7 @@ services:
       - "3000:3000"
     volumes:
       - type: bind
-        source: $PWD
+        source: $LAWDIR
         target: /app
         volume:
           nocopy: true
@@ -23,7 +23,7 @@ services:
   mongo:
     image: mongo
     restart: always
-    env_file: $PWD/environment/development.env
+    env_file: $LAWDIR/environment/development.env
     ports: 
       - 27017:27017
 # Starting Minio Container
@@ -32,7 +32,7 @@ services:
     restart: always
     ports:
       - 9000:9000
-    env_file: $PWD/environment/development.env
+    env_file: $LAWDIR/environment/development.env
     command: server /data
 
 
